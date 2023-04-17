@@ -21,18 +21,16 @@
 #define BT2_LED 9
 #define BT3_LED 7
 
-#define BT1_R_KEY 'p'
-#define BT1_L_KEY 'o'
-#define BT2_R_KEY 'i'
-#define BT2_L_KEY 'u'
-#define BT3_R_KEY 'y'
-#define BT3_L_KEY 't'
-#define BT4_KEY 'r'
-#define BT5_KEY 'e'
-#define BT6_KEY 'l'
-#define BT7_KEY 'k'
-#define BT8_KEY 'j'
-#define BT9_KEY 'm'
+#define BT1_KEY 'l'
+#define BT2_KEY 'p'
+#define BT3_R_KEY '-'
+#define BT3_L_KEY '-'
+#define BT4_KEY 'o'
+#define BT5_KEY 't'
+#define BT6_KEY ' '
+#define BT7_KEY 'v'
+#define BT8_KEY 'u'
+#define BT9_KEY 'e'
 
 int BT1_R_State = LOW;
 int BT1_L_State = LOW;
@@ -208,11 +206,19 @@ void update_BTNS_States(){
 }
 
 void update_LEDS_States(){
-  if(!BT1_LED_State && (BT1_R_State || BT1_L_State)) {digitalWrite(BT1_LED, HIGH); BT1_LED_State = HIGH;}
-  else if(BT1_LED_State && !BT1_R_State && !BT1_L_State) {digitalWrite(BT1_LED, LOW); BT1_LED_State = LOW;}
+  if(!BT1_LED_State) {
+    if((BT1_R_State == LOW && BT1_L_State == LOW) || (BT1_R_State == HIGH && BT1_L_State == LOW)){
+      digitalWrite(BT1_LED, HIGH); BT1_LED_State = HIGH;
+    }
+  }
+  else if(BT1_LED_State && BT1_R_State == LOW && BT1_L_State == HIGH) {digitalWrite(BT1_LED, LOW); BT1_LED_State = LOW;}
 
-  if(!BT2_LED_State && (BT2_R_State || BT2_L_State)) {digitalWrite(BT2_LED, HIGH); BT2_LED_State = HIGH;}
-  else if(BT2_LED_State && !BT2_R_State && !BT2_L_State) {digitalWrite(BT2_LED, LOW); BT2_LED_State = LOW;}
+  if(!BT2_LED_State) {
+    if((BT2_R_State == LOW && BT2_L_State == LOW) || (BT2_R_State == HIGH && BT2_L_State == LOW)){
+      digitalWrite(BT2_LED, HIGH); BT2_LED_State = HIGH;
+    }
+  }
+  else if(BT2_LED_State && BT2_R_State == LOW && BT2_L_State == HIGH) {digitalWrite(BT2_LED, LOW); BT2_LED_State = LOW;}
 
   if(!BT3_LED_State && (BT3_R_State || BT3_L_State)) {digitalWrite(BT3_LED, HIGH); BT3_LED_State = HIGH;}
   else if(BT3_LED_State && !BT3_R_State && !BT3_L_State) {digitalWrite(BT3_LED, LOW); BT3_LED_State = LOW;}
@@ -220,10 +226,8 @@ void update_LEDS_States(){
 
 #if !DEBUG
 void press_keys(){
-  if(BT1_R_State_prev != BT1_R_State) Keyboard.press(BT1_R_KEY);
-  if(BT1_L_State_prev != BT1_L_State) Keyboard.press(BT1_L_KEY);
-  if(BT2_R_State_prev != BT2_R_State) Keyboard.press(BT2_R_KEY);
-  if(BT2_L_State_prev != BT2_L_State) Keyboard.press(BT2_L_KEY);
+  if((BT1_L_State_prev == HIGH && BT1_L_State == LOW) || (BT1_R_State_prev == LOW && BT1_L_State == HIGH)) Keyboard.press(BT1_KEY);
+  if((BT2_L_State_prev == HIGH && BT2_L_State == LOW) || (BT2_R_State_prev == LOW && BT2_L_State == HIGH)) Keyboard.press(BT2_KEY);
   if(BT3_R_State_prev != BT3_R_State) Keyboard.press(BT3_R_KEY);
   if(BT3_L_State_prev != BT3_L_State) Keyboard.press(BT3_L_KEY);
   if(BT4_State_prev != BT4_State) Keyboard.press(BT4_KEY);
