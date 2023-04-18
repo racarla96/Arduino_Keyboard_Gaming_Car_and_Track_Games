@@ -226,8 +226,8 @@ void update_LEDS_States(){
 
 #if !DEBUG
 void press_keys(){
-  if((BT1_L_State_prev == HIGH && BT1_L_State == LOW) || (BT1_R_State_prev == LOW && BT1_L_State == HIGH)) Keyboard.press(BT1_KEY);
-  if((BT2_L_State_prev == HIGH && BT2_L_State == LOW) || (BT2_R_State_prev == LOW && BT2_L_State == HIGH)) Keyboard.press(BT2_KEY);
+  if((BT1_L_State_prev == HIGH && BT1_L_State == LOW) || (BT1_R_State_prev == LOW && BT1_R_State == HIGH)) Keyboard.press(BT1_KEY);
+  if((BT2_L_State_prev == HIGH && BT2_L_State == LOW) || (BT2_R_State_prev == LOW && BT2_R_State == HIGH)) Keyboard.press(BT2_KEY);
   if(BT3_R_State_prev != BT3_R_State) Keyboard.press(BT3_R_KEY);
   if(BT3_L_State_prev != BT3_L_State) Keyboard.press(BT3_L_KEY);
   if(BT4_State_prev != BT4_State) Keyboard.press(BT4_KEY);
